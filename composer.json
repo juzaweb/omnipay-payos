@@ -9,12 +9,16 @@
     ],
     "require": {
         "php": ">=8.0",
+        "league/omnipay": "^3",
         "payos/payos": "^1.0"
     },
     "autoload": {
         "psr-4": {
             "Juzaweb\\PayOs\\": "src/"
-        }
+        },
+        "files": [
+            "helpers.php"
+        ]
     },
     "config": {
         "sort-packages": true
