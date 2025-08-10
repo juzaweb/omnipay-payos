@@ -47,4 +47,14 @@ class PurchaseResponse extends AbstractResponse
 
         return $this->data['checkoutUrl'] . '/?embedded=true';
     }
+
+    /**
+     * Gateway Reference
+     *
+     * @return null|string A reference provided by the gateway to represent this transaction
+     */
+    public function getTransactionReference()
+    {
+        return $this->data['paymentLinkId'];
+    }
 }
