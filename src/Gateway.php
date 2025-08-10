@@ -38,4 +38,34 @@ class Gateway extends AbstractGateway
     {
         return $this->createRequest(CompletePurchaseRequest::class, $options);
     }
+
+    public function setClientId($value)
+    {
+        return $this->setParameter('clientId', $value);
+    }
+
+    public function getClientId()
+    {
+        return $this->getParameter('clientId');
+    }
+
+    public function setKey($value)
+    {
+        return $this->setParameter('key', $value);
+    }
+
+    public function getKey()
+    {
+        return $this->getParameter('key');
+    }
+
+    public function setChecksumKey($value)
+    {
+        return $this->setParameter('checksumKey', $value);
+    }
+
+    public function getChecksumKey()
+    {
+        return $this->getParameter('checksumKey');
+    }
 }

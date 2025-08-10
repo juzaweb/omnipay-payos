@@ -18,9 +18,4 @@ class PurchaseResponse extends AbstractResponse
     {
         return isset($this->data['code']) && $this->data['code'] === '00';
     }
-
-    public function isRedirect(): bool
-    {
-        return false;
-    }
 }

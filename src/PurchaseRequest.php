@@ -20,30 +20,22 @@ class PurchaseRequest extends AbstractRequest
         $this->validate('amount', 'orderCode');
 
         $orderCode = (int) $this->getOrderCode();
-        $amount = $this->getAmount() * config('payment.currency_conversion.VND');
+        $amount = $this->getParameter('amount') * 1;
 
         return [
             'orderCode' => $orderCode,
             'amount' => $amount,
-            'quantity' => 1,
-            'items' => [
-                [
-                    'name' => $this->getDescription(),
-                    'price' => $amount,
-                    'quantity' => 1,
-                ]
-            ],
             'returnUrl' => $this->getReturnUrl(),
             'cancelUrl' => $this->getCancelUrl(),
-            'description' => $this->getDescription(),
+            'description' => sub_char($this->getDescription(), 25),
         ];
     }
 
     public function sendData($data): PurchaseResponse
     {
-        $payOSClientId = $this->getParameter('clientId');
-        $payOSApiKey = $this->getParameter('key');
-        $payOSChecksumKey = $this->getParameter('checksumKey');
+        $payOSClientId = $this->getClientId();
+        $payOSApiKey = $this->getKey();
+        $payOSChecksumKey = $this->getChecksumKey();
 
         $payOS = new PayOS($payOSClientId, $payOSApiKey, $payOSChecksumKey);
         $response = $payOS->createPaymentLink($data);
@@ -51,7 +43,7 @@ class PurchaseRequest extends AbstractRequest
         return $this->response = new PurchaseResponse($this, $response);
     }
 
-    public function setOrderCode($value): static
+    public function setOrderCode($value)
     {
         return $this->setParameter('orderCode', $value);
     }
@@ -61,14 +53,14 @@ class PurchaseRequest extends AbstractRequest
         return $this->getParameter('orderCode');
     }
 
-    public function setClientId($value): static
-    {
-        return $this->setParameter('clientId', $value);
-    }
-
     public function getClientId()
     {
         return $this->getParameter('clientId');
+    }
+
+    public function setClientId($value)
+    {
+        return $this->setParameter('clientId', $value);
     }
 
     public function setKey($value): static
