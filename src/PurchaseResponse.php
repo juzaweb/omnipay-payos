@@ -35,20 +35,6 @@ class PurchaseResponse extends AbstractResponse
     }
 
     /**
-     * Get the redirect URL for the payment.
-     *
-     * @return string|null
-     */
-    public function getEmbedUrl(): ?string
-    {
-        if (! isset($this->data['checkoutUrl'])) {
-            return null;
-        }
-
-        return $this->data['checkoutUrl'] . '/?embedded=true';
-    }
-
-    /**
      * Gateway Reference
      *
      * @return null|string A reference provided by the gateway to represent this transaction
